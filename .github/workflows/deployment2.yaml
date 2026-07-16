@@ -1,0 +1,35 @@
+name: Deployment2 with multiple jobs
+on: push
+jobs:
+  install_dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get the code
+        uses: actions/checkout@v7
+      - name: install dependencies
+        run: npm ci
+      - name: lint
+        run: npm run lint   
+  test_code:
+    needs: install_dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: getthe code
+        uses: actions/checkout@v7
+      - name: test code
+        run: npm run test
+  deploy:
+    needs: test_code
+    runs-on: ubuntu-latest
+    steps:
+      - name: get the code
+        uses: actions/checkout@v7
+      - name: install dependency
+        run: npm ci
+      - name: build code 
+        run: npm run build
+      - name: deploy
+        run: echo "deploying ..."   
+        
+
+
