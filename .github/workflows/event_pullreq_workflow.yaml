@@ -1,0 +1,14 @@
+name: workflow on pull request
+on:
+  pull_request:
+    types:
+      - opened
+  workflow_dispatch:
+jobs:
+  checkout_code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get the code
+        uses: action/checkout@v7 
+      - name: event data
+        run: echo "${{ toJSON(github.event) }}  
